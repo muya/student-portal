@@ -1,31 +1,23 @@
 <?php
 
 /**
- * This is the model class for table "users".
+ * This is the model class for table "entityStates".
  *
- * The followings are the available columns in table 'users':
- * @property integer $userID
- * @property string $firstName
- * @property string $lastName
- * @property string $userName
- * @property string $email
- * @property string $password
- * @property integer $status
+ * The followings are the available columns in table 'entityStates':
+ * @property integer $entityStateID
+ * @property string $entityStateName
+ * @property integer $selectable
  * @property string $dateCreated
  * @property integer $insertedBy
  * @property string $dateModified
  * @property integer $updatedBy
- *
- * The followings are the available model relations:
- * @property StudentProfiles[] $studentProfiles
- * @property UserGroupMappings[] $userGroupMappings
  */
-class Users extends CActiveRecord
+class EntityStates extends CActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
-	 * @return Users the static model class
+	 * @return EntityStates the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
@@ -37,7 +29,7 @@ class Users extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'users';
+		return 'entityStates';
 	}
 
 	/**
@@ -48,14 +40,12 @@ class Users extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('firstName, lastName, userName, email, password, dateCreated, insertedBy, dateModified, updatedBy', 'required'),
-			array('status, insertedBy, updatedBy', 'numerical', 'integerOnly'=>true),
-			array('firstName, lastName, email', 'length', 'max'=>60),
-			array('userName', 'length', 'max'=>15),
-			array('password', 'length', 'max'=>255),
+			array('entityStateName, dateCreated, insertedBy, dateModified, updatedBy', 'required'),
+			array('selectable, insertedBy, updatedBy', 'numerical', 'integerOnly'=>true),
+			array('entityStateName', 'length', 'max'=>60),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('userID, firstName, lastName, userName, email, password, status, dateCreated, insertedBy, dateModified, updatedBy', 'safe', 'on'=>'search'),
+			array('entityStateID, entityStateName, selectable, dateCreated, insertedBy, dateModified, updatedBy', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -67,9 +57,6 @@ class Users extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'studentProfiles' => array(self::HAS_MANY, 'StudentProfiles', 'userID'),
-			'userGroupMappings' => array(self::HAS_MANY, 'UserGroupMappings', 'userID'),
-			'status_' => array(self::BELONGS_TO, 'EntityStates', 'status')
 		);
 	}
 
@@ -79,18 +66,13 @@ class Users extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'userID' => 'User',
-			'firstName' => 'First Name',
-			'lastName' => 'Last Name',
-			'userName' => 'User Name',
-			'email' => 'Email',
-			'password' => 'Password',
-			'status' => 'Status',
+			'entityStateID' => 'Entity State',
+			'entityStateName' => 'Entity State Name',
+			'selectable' => 'Selectable',
 			'dateCreated' => 'Date Created',
 			'insertedBy' => 'Inserted By',
 			'dateModified' => 'Date Modified',
 			'updatedBy' => 'Updated By',
-			'status_.entityStateName' => 'Status',
 		);
 	}
 
@@ -105,13 +87,9 @@ class Users extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('userID',$this->userID);
-		$criteria->compare('firstName',$this->firstName,true);
-		$criteria->compare('lastName',$this->lastName,true);
-		$criteria->compare('userName',$this->userName,true);
-		$criteria->compare('email',$this->email,true);
-		$criteria->compare('password',$this->password,true);
-		$criteria->compare('status',$this->status);
+		$criteria->compare('entityStateID',$this->entityStateID);
+		$criteria->compare('entityStateName',$this->entityStateName,true);
+		$criteria->compare('selectable',$this->selectable);
 		$criteria->compare('dateCreated',$this->dateCreated,true);
 		$criteria->compare('insertedBy',$this->insertedBy);
 		$criteria->compare('dateModified',$this->dateModified,true);
