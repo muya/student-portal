@@ -3,7 +3,7 @@ student-portal
 
 StudentPortal App is a follow-through tutorial for learning the Yii Framework. 
 
-Details on the tutorial here: http://encore254.blogspot.com/2012/08/yii-tutorial-introduction.html
+Details on the tutorial here: http://muya.github.io/understanding-our-auto-generated-code_28/
 
 Structure
 =========
